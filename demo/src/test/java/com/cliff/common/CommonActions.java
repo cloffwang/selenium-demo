@@ -1,6 +1,5 @@
 package com.cliff.utils;
 
-import ch.qos.logback.core.util.FileUtil;
 import com.cliff.pages.LoginPage;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
