@@ -1,6 +1,7 @@
-package com.cliff.utils;
+package com.cliff.common;
 
 import com.cliff.pages.LoginPage;
+import com.cliff.utils.TestLogger;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -19,7 +20,8 @@ public class CommonActions {
             String username,
             String password) {
         LoginPage loginPage = new LoginPage(driver);
-        loginPage.login(username,password);
+        loginPage.fillUserInfo(username,password);
+        loginPage.tapOnLogin();
     }
 
     public static WebElement waitForAppear(

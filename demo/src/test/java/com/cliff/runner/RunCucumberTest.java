@@ -5,7 +5,7 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(features = "src/test/resources/features", // Path to feature files
         glue = {"com.cliff.hooks", "com.cliff.steps"})          // Package with step definitions
-public class CucumberRunner extends AbstractTestNGCucumberTests {
+public class RunCucumberTest extends AbstractTestNGCucumberTests {
 }
 
 /*

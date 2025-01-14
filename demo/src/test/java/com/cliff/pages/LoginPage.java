@@ -1,10 +1,8 @@
 package com.cliff.pages;
 
-import com.cliff.utils.ElementExists;
+import com.cliff.common.ElementExists;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-
-import javax.swing.*;
 
 public class LoginPage {
     private final WebDriver driver;
@@ -21,9 +19,13 @@ public class LoginPage {
         return ElementExists.isElementExists(driver, loginButton);
     }
 
-    public void login(String username, String password) {
+    public void fillUserInfo(String username, String password) {
         inputUsername(username);
         inputPassword(password);
+        //driver.findElement(loginButton).click();
+    }
+
+    public void tapOnLogin() {
         driver.findElement(loginButton).click();
     }
 

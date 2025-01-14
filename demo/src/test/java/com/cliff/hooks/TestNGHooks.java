@@ -1,29 +1,64 @@
 package com.cliff.hooks;
 
+import com.cliff.managers.DriverManager;
 import com.cliff.utils.ProjLog;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import io.cucumber.java.Scenario;
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.*;
 
-public class BaseSteps {
+public class TestNGHooks {
+
+    @BeforeSuite
+    public void beforeSuite() {
+        System.out.println("This is from TestNG BeforeSuite");
+        // Perform suite-level setup (e.g., starting a test server)
+    }
+
     @BeforeClass
     public void beforeClass() {
-        ProjLog.logger.debug("This is running before class");
+        System.out.println("This is from TestNG BeforeClass");
+        // Perform class-level setup (e.g., initializing a database connection)
+    }
+
+    @BeforeMethod
+    public void beforeMethod() {
+        System.out.println("This is from TestNG BeforeMethod");
+        // Perform method-level setup (e.g., starting a browser)
+    }
+
+    @Before // Cucumber Before hook
+    public void beforeScenario(Scenario scenario) {
+        System.out.println("This is from Cucumber Before");
+        WebDriver driver = DriverManager.createDriver("chrome");
+    }
+
+    @After // Cucumber After hook
+    public void afterScenario(Scenario scenario) {
+        System.out.println("This is from Cucumber After");
+        // Perform scenario-level teardown (e.g., taking a screenshot on failure)
+        if (scenario.isFailed()) {
+            // Take screenshot or perform other actions
+        }
+        DriverManager.CloseDriver();
+    }
+
+    @AfterMethod
+    public void afterMethod() {
+        System.out.println("This is from TestNG AfterMethod");
+        // Perform method-level teardown (e.g., closing the browser)
     }
 
     @AfterClass
     public void afterClass() {
-        ProjLog.logger.debug("This is running after class");
+        System.out.println("This is from TestNG AfterClass");
+        // Perform class-level teardown (e.g., closing the database connection)
     }
 
-    @Before
-    public void beforeScenario() {
-        ProjLog.logger.debug("This is running before scenario");
-    }
-
-    @After
-    public void afterScenario() {
-        ProjLog.logger.debug("This is running after scenario");
+    @AfterSuite
+    public void afterSuite() {
+        System.out.println("This is from TestNG AfterSuite");
+        // Perform suite-level teardown (e.g., stopping the test server)
     }
 }

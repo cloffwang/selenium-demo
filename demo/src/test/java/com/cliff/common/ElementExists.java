@@ -1,4 +1,4 @@
-package com.cliff.utils;
+package com.cliff.common;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;

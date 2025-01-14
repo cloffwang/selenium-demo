@@ -1,6 +1,6 @@
 package com.cliff.pages;
 
-import com.cliff.utils.ElementExists;
+import com.cliff.common.ElementExists;
 import com.cliff.utils.TestLogger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

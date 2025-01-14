@@ -1,28 +1,43 @@
 package com.cliff.steps;
 
+import com.cliff.managers.ConfigManager;
+import com.cliff.managers.DriverManager;
+import com.cliff.pages.InventoryPage;
+import com.cliff.pages.LoginPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
-public class LoginStepDefs {
+public class LoginSteps  {
+    private WebDriver driver;
+    private LoginPage loginPage;
 
     @Given("I am on the login page")
     public void i_am_on_the_login_page() {
-        // Code to navigate to the login page (e.g., using Selenium)
+        String targetUrl = ConfigManager.getConfig("web", "target");
+        this.driver = DriverManager.getDriver();
+        this.loginPage = new LoginPage(driver);
+        driver.get(targetUrl);
+        Assert.assertTrue(loginPage.isLoginPage(),
+                "It's not login page");
     }
 
-    @When("I enter valid username and password")
-    public void i_enter_valid_username_and_password() {
-        // Code to enter username and password
+    @When("I enter valid username {string} and password {string}")
+    public void i_enter_valid_username_and_password(
+            String username, String password) {
+        loginPage.fillUserInfo(username, password);
     }
 
     @When("I click the login button")
     public void i_click_the_login_button() {
-        // Code to click the login button
+        loginPage.tapOnLogin();
     }
 
     @Then("I should be logged in successfully")
     public void i_should_be_logged_in_successfully() {
-        // Code to verify successful login
+        InventoryPage inventoryPage = new InventoryPage(driver);
+        Assert.assertTrue(inventoryPage.isInventoryPage());
     }
 }
