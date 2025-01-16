@@ -1,5 +1,6 @@
 Feature: Login Functionality
 
+  @Smoke #@Disabled
   Scenario Outline: Successful Login
     Given I am on the login page
     When I enter valid username "<username>" and password "<password>"
