@@ -4,6 +4,7 @@ import com.cliff.managers.ConfigManager;
 import com.cliff.managers.DriverManager;
 import com.cliff.pages.InventoryPage;
 import com.cliff.pages.LoginPage;
+import com.cliff.utils.ProjLog;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -39,5 +40,13 @@ public class LoginSteps  {
     public void i_should_be_logged_in_successfully() {
         InventoryPage inventoryPage = new InventoryPage(driver);
         Assert.assertTrue(inventoryPage.isInventoryPage());
+    }
+
+    @Given("the user is logged in as {string} and password is {string}")
+    public void common_user_login(String username, String password) {
+        this.i_am_on_the_login_page();
+        this.i_enter_valid_username_and_password(username, password);
+        this.i_click_the_login_button();
+        this.i_should_be_logged_in_successfully();
     }
 }
