@@ -1,5 +1,7 @@
+@allure.label.owner=ChentingWang
 Feature: Login Functionality
 
+  @blocker
   @Smoke #@Disabled
   Scenario Outline: Successful Login
     Given I am on the login page
