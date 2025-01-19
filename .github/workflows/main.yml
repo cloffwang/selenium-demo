@@ -3,11 +3,14 @@ name: Allure Report
 on:
   push:
     branches:
-      - main
+      - cliff/dev/action_bugfix
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: demo
 
     steps:
       - name: Checkout code
