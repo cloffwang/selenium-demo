@@ -1,10 +1,8 @@
 package com.cliff.hooks;
 
+import com.cliff.managers.AllureReportManager;
 import com.cliff.managers.DriverManager;
-import com.cliff.utils.ProjLog;
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
+import io.cucumber.java.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 
@@ -35,12 +33,17 @@ public class TestNGHooks {
         WebDriver driver = DriverManager.getDriver();
     }
 
+    @AfterStep
+    public void afterStep(Scenario scenario) {
+        AllureReportManager.attachScreenshot(scenario.getName());
+    }
+
     @After // Cucumber After hook
     public void afterScenario(Scenario scenario) {
         System.out.println("This is from Cucumber After");
         // Perform scenario-level teardown (e.g., taking a screenshot on failure)
         if (scenario.isFailed()) {
-            // Take screenshot or perform other actions
+            AllureReportManager.attachScreenshot(scenario.getName());
         }
         DriverManager.CloseDriver();
     }

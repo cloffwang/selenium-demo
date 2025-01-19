@@ -1,5 +1,6 @@
 package com.cliff.steps;
 
+import com.cliff.common.CommonActions;
 import com.cliff.managers.ConfigManager;
 import com.cliff.managers.DriverManager;
 import com.cliff.pages.InventoryPage;
