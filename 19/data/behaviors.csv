@@ -1,0 +1,7 @@
+"Epic","Feature","Story","FAILED","BROKEN","PASSED","SKIPPED","UNKNOWN"
+"","Login Functionality","wrong username and/or password","0","0","4","0","0"
+"","Login Functionality","Successful Login","0","0","3","0","0"
+"","Inventory Functionality","Test if inventory is list as low to high","0","0","1","0","0"
+"","Login Functionality","username is empty","0","0","1","0","0"
+"","Login Functionality","password is empty","0","0","1","0","0"
+"","Inventory Functionality","Test if all links are valid","1","0","0","0","0"
