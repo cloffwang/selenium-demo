@@ -29,7 +29,7 @@ public class TestNGHooks {
     @Before // Cucumber Before hook
     public void beforeScenario(Scenario scenario) {
         System.out.println("This is from Cucumber Before");
-        DriverManager.createDriver("chrome");
+        DriverManager.createDriver("chrome", false, true, false, "test");
         WebDriver driver = DriverManager.getDriver();
     }
 
