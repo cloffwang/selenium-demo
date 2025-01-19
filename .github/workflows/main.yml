@@ -4,6 +4,14 @@ on:
   push:
     branches:
       - cliff/dev/action_bugfix
+  
+  workflow_dispatch:
+    inputs:
+      debug_enabled:
+        type: boolean
+        description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
+        required: false
+        default: false
 
 jobs:
   build:
@@ -24,6 +32,10 @@ jobs:
       
       - name: Build and run tests with Maven
         run: mvn verify
+
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
       
       - name: Load test report history
         uses: actions/checkout@v3
