@@ -1,6 +1,8 @@
 package com.cliff.common;
 
+import com.cliff.managers.AllureReportManager;
 import com.cliff.pages.LoginPage;
+import com.cliff.utils.ProjLog;
 import com.cliff.utils.TestLogger;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
@@ -11,7 +13,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 
 public class CommonActions {
@@ -66,5 +73,46 @@ public class CommonActions {
         TakesScreenshot takesScreenshot = (TakesScreenshot) driver;
         File screenshot  = takesScreenshot.getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(screenshot, new File(filePath));
+    }
+
+    public static void checkLinks(WebDriver driver) {
+        List<WebElement> elementList = driver.findElements(By.cssSelector("a[href]"));
+        elementList.forEach(webElement -> {
+            String link = webElement.getDomAttribute("href");
+            ProjLog.logger.debug("link is: [{}]", link);
+        });
+    }
+
+    public static boolean checkLinks(WebDriver driver, boolean isHttpLinkOnly) {
+        if (isHttpLinkOnly) {
+            List<WebElement> elementList = driver.findElements(By.cssSelector("a[href^='http']"));
+            List<String> validList = new ArrayList<>();
+            elementList.forEach(webElement -> {
+                String link = webElement.getDomAttribute("href");
+                ProjLog.logger.debug("link is: [{}]", link);
+                try {
+                    URL url = new URL(link);
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setRequestMethod("HEAD");
+                    connection.connect();
+                    int responseCode = connection.getResponseCode();
+                    if (responseCode >= 200 && responseCode < 400) {
+                        validList.add(link);
+                    } else {
+                        ProjLog.logger.debug("I can't open this link: [{}], response code is [{}]",
+                                link, responseCode);
+                        AllureReportManager.attachText(String.format(
+                                "I can't open this link: [%s], response code is [%d]", link, responseCode));
+                    }
+                } catch (IOException e) {
+                    ProjLog.logger.debug("This link is invalid: [{}]", link);
+                }
+
+            });
+            return validList.size() == elementList.size();
+        } else {
+            checkLinks(driver);
+            return false;
+        }
     }
 }

@@ -71,4 +71,10 @@ public class AllureReportManager implements ITestListener {
         }
         return null;
     }
+
+    @Attachment(value = "message", type = "text/plain", fileExtension = ".txt")
+    public static String attachText(String message) {
+        return message;
+    }
+
 }
