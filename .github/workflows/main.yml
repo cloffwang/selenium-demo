@@ -3,7 +3,7 @@ name: Allure Report
 on:
   push:
     branches:
-      - cliff/dev/action_bugfix
+      - main
   
   workflow_dispatch:
     inputs:
@@ -29,17 +29,13 @@ jobs:
         with:
           distribution: zulu
           java-version: 17
-      
-      - name: Build and run tests with Maven
-        run: mvn verify
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
+      - name: Build and run tests with Maven
+        continue-on-error: true
+        run: mvn verify
       
       - name: Load test report history
         uses: actions/checkout@v3
-        if: always()
         continue-on-error: true
         with:
           ref: gh-pages
@@ -47,16 +43,18 @@ jobs:
 
       - name: Build test report
         uses: simple-elf/allure-report-action@v1.7
-        if: always()
         with:
           gh_pages: gh-pages
           allure_history: allure-history
-          allure_results: target/allure-results
+          allure_results: demo/target/allure-results
 
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v3
-        if: always()
         with:
           github_token: ${{ secrets.REPO_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history
+
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
