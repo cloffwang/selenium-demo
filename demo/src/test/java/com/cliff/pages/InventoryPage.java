@@ -1,7 +1,7 @@
 package com.cliff.pages;
 
 import com.cliff.common.ElementExists;
-import com.cliff.utils.TestLogger;
+import com.cliff.utils.ProjLog;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -74,7 +74,7 @@ public class InventoryPage {
             Arrays.sort(prices);
             return first == prices[0];
         }
-        TestLogger.logger.debug("No inventory");
+        ProjLog.logger.debug("No inventory");
         return false;
     }
 
@@ -89,7 +89,7 @@ public class InventoryPage {
             Arrays.sort(prices);
             return first == prices[listElements.size()-1];
         }
-        TestLogger.logger.debug("No inventory");
+        ProjLog.logger.debug("No inventory");
         return false;
     }
 

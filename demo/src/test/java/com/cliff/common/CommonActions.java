@@ -3,7 +3,6 @@ package com.cliff.common;
 import com.cliff.managers.AllureReportManager;
 import com.cliff.pages.LoginPage;
 import com.cliff.utils.ProjLog;
-import com.cliff.utils.TestLogger;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,7 +13,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -60,7 +58,7 @@ public class CommonActions {
     public static void dismissAlert(WebDriver driver, boolean isAccepted) {
         Alert alert = driver.switchTo().alert();
         String alertMsg = alert.getText();
-        TestLogger.logger.debug("Alert pops up: {}", alertMsg);
+        ProjLog.logger.debug("Alert pops up: {}", alertMsg);
 
         if (isAccepted) {
             alert.accept();

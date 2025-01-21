@@ -108,9 +108,45 @@
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
+                    <properties>
+                        <property>
+                            <name>dataproviderthreadcount</name>
+                            <value>10</value>
+                        </property>
+                    </properties>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <!--<profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <env>local</env>
+            </properties>
+        </profile>
+        <profile>
+            <id>ci</id>
+            <properties>
+                <env>ci</env>
+            </properties>
+        </profile>
+        <profile>
+            <id>grid</id>
+            <properties>
+                <env>grid</env>
+            </properties>
+        </profile>
+        <profile>
+            <id>browserstack</id>
+            <properties>
+                <env>browserstack</env>
+            </properties>
+        </profile>
+    </profiles>-->
 
 </project>

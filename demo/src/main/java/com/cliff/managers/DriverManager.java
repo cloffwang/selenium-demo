@@ -14,7 +14,7 @@ import java.net.URL;
 import java.util.Locale;
 
 public class DriverManager {
-    private static ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
+    private static final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
 
     public static void createDriver(
             String browser,
@@ -50,6 +50,8 @@ public class DriverManager {
                             if (isGrid) {
                                 driver = new RemoteWebDriver(
                                         new URL(remoteUrl), firefoxOptions);
+                            } else {
+                                driver = new FirefoxDriver(firefoxOptions);
                             }
                             break;
                         default:
