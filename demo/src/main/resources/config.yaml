@@ -1,3 +1,45 @@
 web:
   target: https://www.saucedemo.com/
   screenshotsPath: target/test-outputs/screenshots/
+
+env:
+  local:
+    browsers:
+      - browser: chrome
+        version: latest
+      - browser: firefox
+        version: latest
+    headless: false
+    browserStack: false
+    grid: false
+    hubUrl: http://127.0.0.1:4444
+  ci:
+    browsers:
+      - browser: chrome
+        version: latest
+      - browser: firefox
+        version: latest
+    headless: true
+    browserStack: false
+    grid: false
+    hubUrl: http://127.0.0.1:4444
+  grid:
+    browsers:
+      - browser: chrome
+        version: latest
+      - browser: firefox
+        version: latest
+    headless: true
+    browserStack: false
+    grid: true
+    hubUrl: http://127.0.0.1:4444
+  browserstack:
+    browsers:
+      - browser: chrome
+        version: latest
+      - browser: firefox
+        version: latest
+    headless: true
+    browserStack: true
+    grid: false
+    hubUrl: http://127.0.0.1:4444
