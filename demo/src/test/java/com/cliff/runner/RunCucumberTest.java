@@ -44,8 +44,8 @@ public class RunCucumberTest extends AbstractTestNGCucumberTests {
         for (Map<String, Object> config : configs) {
             DriverManager.createDriver(
                     (String)config.get("browser"),
-                    ConfigManager.getBoolean("env", env, "headless"),
                     ConfigManager.getBoolean("env", env, "browserStack"),
+                    ConfigManager.getBoolean("env", env, "headless"),
                     ConfigManager.getBoolean("env", env, "grid"),
                     ConfigManager.getConfig("env", env, "hubUrl")
             );
