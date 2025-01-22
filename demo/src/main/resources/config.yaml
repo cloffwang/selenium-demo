@@ -2,6 +2,9 @@ web:
   target: https://www.saucedemo.com/
   screenshotsPath: target/test-outputs/screenshots/
 
+the-internet:
+  target: https://the-internet.herokuapp.com/
+
 env:
   local:
     browsers:

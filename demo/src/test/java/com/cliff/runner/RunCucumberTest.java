@@ -7,19 +7,17 @@ import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 import io.cucumber.testng.FeatureWrapper;
 import io.cucumber.testng.PickleWrapper;
-import io.qameta.allure.Step;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
-import org.testng.xml.XmlTest;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @CucumberOptions(features = "src/test/resources/features",
         plugin = {"pretty", "html:target/cucumber-html-report",
                 "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"},
-        glue = {"com.cliff.hooks", "com.cliff.steps"})          // Package with step definitions
+        glue = {"com.cliff.hooks", "com.cliff.steps"},
+        tags = "not @skip and not @InProgress")          // Package with step definitions
 public class RunCucumberTest extends AbstractTestNGCucumberTests {
     private String env;
 

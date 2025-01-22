@@ -1,4 +1,4 @@
-package com.cliff.pages;
+package com.cliff.pages.sauselab;
 
 import com.cliff.common.ElementExists;
 import com.cliff.utils.ProjLog;

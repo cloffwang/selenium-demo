@@ -1,7 +1,7 @@
 package com.cliff.common;
 
 import com.cliff.managers.AllureReportManager;
-import com.cliff.pages.LoginPage;
+import com.cliff.pages.sauselab.LoginPage;
 import com.cliff.utils.ProjLog;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;

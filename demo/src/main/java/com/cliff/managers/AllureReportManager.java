@@ -3,9 +3,7 @@ package com.cliff.managers;
 import io.cucumber.java.Scenario;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Attachment;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -67,7 +65,11 @@ public class AllureReportManager implements ITestListener {
     public static byte[] attachScreenshot(String testName) {
         WebDriver driver = DriverManager.getDriver();
         if (driver instanceof TakesScreenshot) {
-            return ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+            try {
+                return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            } catch (UnhandledAlertException e) {
+                attachText("An alert blocking screenshots");
+            }
         }
         return null;
     }

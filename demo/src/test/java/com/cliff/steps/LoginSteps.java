@@ -2,12 +2,11 @@ package com.cliff.steps;
 
 import com.cliff.managers.ConfigManager;
 import com.cliff.managers.DriverManager;
-import com.cliff.pages.InventoryPage;
-import com.cliff.pages.LoginPage;
+import com.cliff.pages.sauselab.InventoryPage;
+import com.cliff.pages.sauselab.LoginPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.qameta.allure.Allure;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

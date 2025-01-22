@@ -1,9 +1,7 @@
 package com.cliff.steps;
 
-import com.cliff.common.CommonActions;
-import com.cliff.managers.ConfigManager;
 import com.cliff.managers.DriverManager;
-import com.cliff.pages.InventoryPage;
+import com.cliff.pages.sauselab.InventoryPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;

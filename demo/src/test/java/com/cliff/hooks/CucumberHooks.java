@@ -20,11 +20,7 @@ public class CucumberHooks {
 
     @Before // Cucumber Before hook
     public void beforeScenario(Scenario scenario) {
-        /*WebDriver driver = DriverManager.getDriver();
-        Capabilities caps = ((RemoteWebDriver)driver).getCapabilities();
-        Allure.parameter("Browser Name", caps.getBrowserName());
-        Allure.parameter("Version", caps.getBrowserVersion());
-        Allure.parameter("OS", caps.getPlatformName());*/
+
     }
 
     @Step("End step screenshots")
@@ -39,6 +35,8 @@ public class CucumberHooks {
         // Perform scenario-level teardown (e.g., taking a screenshot on failure)
         if (scenario.isFailed()) {
             AllureReportManager.attachScreenshot(scenario.getName());
+            WebDriver driver = DriverManager.getDriver();
+            AllureReportManager.attachText(driver.getPageSource());
         }
         DriverManager.CloseDriver();
     }
