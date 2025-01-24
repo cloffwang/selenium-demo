@@ -24,8 +24,7 @@ public class RunCucumberTest extends AbstractTestNGCucumberTests {
     @Override
     @BeforeClass(alwaysRun = true)
     public void setUpClass(ITestContext context) {
-        //this.env = context.getCurrentXmlTest().getParameter("env");
-        this.env = "local";
+        this.env = context.getCurrentXmlTest().getParameter("env");
         ProjLog.logger.debug("current env is {}", env);
         super.setUpClass(context);
     }
