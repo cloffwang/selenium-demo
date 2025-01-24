@@ -24,6 +24,7 @@ public class RunCucumberTest extends AbstractTestNGCucumberTests {
     @Override
     @BeforeClass(alwaysRun = true)
     public void setUpClass(ITestContext context) {
+        System.setProperty("org.slf4j.simpleLogger.log.org.apache.hc.client5.http.wire", "INFO");
         this.env = context.getCurrentXmlTest().getParameter("env");
         ProjLog.logger.debug("current env is {}", env);
         super.setUpClass(context);
