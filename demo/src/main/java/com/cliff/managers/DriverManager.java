@@ -39,6 +39,7 @@ public class DriverManager {
                                 driver = new RemoteWebDriver(
                                         new URL(remoteUrl), chromeOptions);
                             } else {
+                                WebDriverManager.chromedriver().setup();
                                 driver = new ChromeDriver(chromeOptions);
                             }
                             break;
@@ -51,6 +52,7 @@ public class DriverManager {
                                 driver = new RemoteWebDriver(
                                         new URL(remoteUrl), firefoxOptions);
                             } else {
+                                WebDriverManager.firefoxdriver().setup();
                                 driver = new FirefoxDriver(firefoxOptions);
                             }
                             break;
