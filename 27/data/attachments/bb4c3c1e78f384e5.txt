@@ -1,0 +1,1 @@
+I can't open this link: [https://www.linkedin.com/company/sauce-labs/], response code is [999]
