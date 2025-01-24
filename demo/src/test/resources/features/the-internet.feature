@@ -45,3 +45,40 @@ Feature: the-internet selenium demo
     When I click the Digest Auth link
     And I can login as user "admin" and password "admin"
     Then I can see Digest Auth page
+
+  @critical @Regression
+  Scenario: Drag and Drop test
+    Given I am on the-internet site
+    When I click the Drag and Drop link
+    Then I can drag a to b
+    And Their position is switched
+
+  @critical @Regression
+  Scenario: Select option test
+    Given I am on the-internet site
+    When I click the Dropdown page link
+    Then I choose option 2 and the selected option should be "Option 2"
+
+  @critical @Regression
+  Scenario: Slider moving test
+    Given I am on the-internet site
+    When I click the Horizontal Slider page link
+    Then I can change the slider value by click and hold
+
+  @critical @Regression
+  Scenario Outline: Hover test
+    Given I am on the-internet site
+    When I click the Hovers page link
+    Then I can hover on user <number> and the name is correct
+
+    Examples:
+    | number |
+    | 1      |
+    | 2      |
+    | 3      |
+
+  @critical @Regression @InProgress
+  Scenario: Infinite scrolling test
+    Given I am on the-internet site
+    When I click the Infinite scroll page link
+    Then I can scroll and find the No. 10 cell

@@ -40,7 +40,9 @@ public class ContextMenuPage {
                 .pollingEvery(Duration.ofMillis(200))
                 .ignoring(NoSuchElementException.class);
         WebElement clickable = driver.findElement(hotSpot);
-        new Actions(driver).contextClick(clickable).perform();
+        new Actions(driver)
+                .contextClick(clickable)
+                .perform();
         wait.until(ExpectedConditions.alertIsPresent());
         Alert alert = driver.switchTo().alert();
         return alert.getText();

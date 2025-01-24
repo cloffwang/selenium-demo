@@ -18,7 +18,11 @@ public class TheInternetHomePage {
     private final By contextMenuEntry = By.cssSelector("[href*='context']");
     private final By digestAuthEntry = By.cssSelector("[href*='digest']");
     private final By disappearingEntry = By.partialLinkText("disa");
-    private final By dragAndDropEntry = By.partialLinkText("drag");
+    private final By dragAndDropEntry = By.cssSelector("[href*='drag']");
+    private final By dropDownEntry = By.cssSelector("[href*=dropdown]");
+    private final By horizontalSliderEntry = By.cssSelector("[href*=horizontal]");
+    private final By hoverEntry = By.cssSelector("[href*='hovers']");
+    private final By infiniteScrollEntry = By.cssSelector("[href*='infinite']");
 
     public TheInternetHomePage(WebDriver driver) {this.driver = driver;}
 
@@ -43,4 +47,18 @@ public class TheInternetHomePage {
     public void gotoDigestAuth() {
         driver.findElement(digestAuthEntry).click();
     }
+
+    public void gotoDragDrop() {
+        driver.findElement(dragAndDropEntry).click();
+    }
+
+    public void gotoDropDown() {
+        driver.findElement(dropDownEntry).click();
+    }
+
+    public void gotoHorizontalSlider() { driver.findElement(horizontalSliderEntry).click(); }
+
+    public void gotoHover() { driver.findElement(hoverEntry).click(); }
+
+    public void gotoInfiniteScroll() { driver.findElement(infiniteScrollEntry).click(); }
 }

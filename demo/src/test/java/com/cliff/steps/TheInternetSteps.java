@@ -15,6 +15,11 @@ public class TheInternetSteps {
     private CheckboxesPage checkboxesPage;
     private ContextMenuPage contextMenuPage;
     private DigestAuthPage digestAuthPage;
+    private DragDropPage dragDropPage;
+    private DropDownPage dropDownPage;
+    private HorizontalSliderPage horizontalSliderPage;
+    private HoversPage hoversPage;
+    private InfiniteScrollsPage infiniteScrollsPage;
 
     @Given("I am on the-internet site")
     public void i_am_on_the_internet_site() {
@@ -172,5 +177,89 @@ public class TheInternetSteps {
                 digestAuthPage.isDigestPage(),
                 "Not in Digest Auth page"
         );
+    }
+
+    @When("I click the Drag and Drop link")
+    public void i_click_the_drag_and_drop_link() {
+        theInternetHomePage.gotoDragDrop();
+        dragDropPage = new DragDropPage(driver);
+        Assert.assertTrue(
+                dragDropPage.isDragAndDropPage(),
+                "Not in Drag and Drop page"
+        );
+    }
+
+    @Then("I can drag a to b")
+    public void i_can_drag_a_to_b() {
+        dragDropPage.dragAndDropA2B();
+    }
+
+    @And("Their position is switched")
+    public void their_position_is_switched() {
+        Assert.assertEquals(
+                dragDropPage.getLabelAText(), "B"
+        );
+        Assert.assertEquals(
+                dragDropPage.getLabelBText(), "A"
+        );
+    }
+
+    @When("I click the Dropdown page link")
+    public void i_click_the_dropdown_page_link() {
+        theInternetHomePage.gotoDropDown();
+        dropDownPage = new DropDownPage(driver);
+        Assert.assertTrue(
+                dropDownPage.isDropDownPage(),
+                "Not in Dropdown page"
+        );
+    }
+
+    @Then("I choose option {int} and the selected option should be {string}")
+    public void i_choose_option(int option, String optionText) {
+        String resultText = dropDownPage.getSelected(option);
+        Assert.assertEquals(resultText, optionText);
+    }
+
+    @When("I click the Horizontal Slider page link")
+    public void i_click_the_horizontal_slider_page_link() {
+        theInternetHomePage.gotoHorizontalSlider();
+        horizontalSliderPage = new HorizontalSliderPage(driver);
+        Assert.assertTrue(
+                horizontalSliderPage.isHorizontalSliderPage(),
+                "Not in Horizontal Slider page"
+        );
+    }
+
+    @Then("I can change the slider value by click and hold")
+    public void i_can_change_the_slider_value_by_click_and_hold() {
+        horizontalSliderPage.adjustSlider();
+        Assert.assertNotEquals(horizontalSliderPage.getSliderValue(), 0);
+    }
+
+    @When("I click the Hovers page link")
+    public void i_click_the_hovers_page_link() {
+        theInternetHomePage.gotoHover();
+        hoversPage = new HoversPage(driver);
+        Assert.assertTrue(
+                hoversPage.isHoversPage(),
+                "Not in Hovers page"
+        );
+    }
+
+    @Then("I can hover on user {int} and the name is correct")
+    public void i_can_hover_on_user_and_the_name_is(int index) {
+        hoversPage.hoverOnUser(index);
+        Assert.assertTrue(hoversPage.isUserVisible(index));
+    }
+
+    @When("I click the Infinite scroll page link")
+    public void i_click_the_infinite_scroll_page_link() {
+        theInternetHomePage.gotoInfiniteScroll();
+        infiniteScrollsPage = new InfiniteScrollsPage(driver);
+    }
+
+    @Then("I can scroll and find the No. {int} cell")
+    public void i_can_scroll_and_find_the_cell(int index) {
+        Assert.assertTrue(infiniteScrollsPage.scrollToFind(index));
     }
 }
