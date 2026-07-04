@@ -1,5 +1,7 @@
 # Selenium Demo
 
+[![Allure Report](https://github.com/cloffwang/selenium-demo/actions/workflows/main.yml/badge.svg)](https://github.com/cloffwang/selenium-demo/actions/workflows/main.yml)
+
 A Java test automation framework demonstrating a BDD-style Selenium + Cucumber + TestNG setup, using [saucedemo.com](https://www.saucedemo.com/) as the target application. It includes multi-browser execution, environment-based configuration, and Allure reporting wired into GitHub Actions.
 
 ## Tech Stack
