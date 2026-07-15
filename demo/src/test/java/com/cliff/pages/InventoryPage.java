@@ -28,7 +28,12 @@ public class InventoryPage extends BasePage {
     }
 
     public boolean isInventoryPage() {
-        return isElementPresent(headerLabel);
+        try {
+            waitForVisible(headerLabel);
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 
     public void sortAZ() {

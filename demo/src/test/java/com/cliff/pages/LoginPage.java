@@ -17,7 +17,12 @@ public class LoginPage extends BasePage {
     }
 
     public boolean isLoginPage() {
-        return isElementPresent(loginButton);
+        try {
+            waitForVisible(loginButton);
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 
     public void fillUserInfo(String username, String password) {
