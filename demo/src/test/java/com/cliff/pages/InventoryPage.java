@@ -1,15 +1,16 @@
 package com.cliff.pages;
 
 import com.cliff.common.ElementExists;
+import com.cliff.common.Waits;
 import com.cliff.utils.ProjLog;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class InventoryPage {
     public final String optionAZ = "Name (A to Z)";
@@ -28,7 +29,6 @@ public class InventoryPage {
 
     public InventoryPage(WebDriver driver) {
         this.driver = driver;
-        driver.manage().timeouts().implicitlyWait(1, TimeUnit.MINUTES);
     }
 
     public boolean isInventoryPage() {
@@ -64,7 +64,7 @@ public class InventoryPage {
     }
 
     public boolean isLowest() {
-        List<WebElement> listElements = driver.findElements(listItem);
+        List<WebElement> listElements = getInventoryItems();
         if(!listElements.isEmpty()) {
             float[] prices = new float[listElements.size()];
             for ( int i=0; i<listElements.size(); i++) {
@@ -79,7 +79,7 @@ public class InventoryPage {
     }
 
     public boolean isHighest() {
-        List<WebElement> listElements = driver.findElements(listItem);
+        List<WebElement> listElements = getInventoryItems();
         if(!listElements.isEmpty()) {
             float[] prices = new float[listElements.size()];
             for ( int i=0; i<listElements.size(); i++) {
@@ -93,8 +93,16 @@ public class InventoryPage {
         return false;
     }
 
+    private List<WebElement> getInventoryItems() {
+        try {
+            return Waits.waitForPresenceOfAll(driver, listItem);
+        } catch (TimeoutException e) {
+            return List.of();
+        }
+    }
+
     private void findSelect() {
-        WebElement selectElement = driver.findElement(sortList);
+        WebElement selectElement = Waits.waitForVisible(driver, sortList);
         this.select = new Select(selectElement);
     }
 }

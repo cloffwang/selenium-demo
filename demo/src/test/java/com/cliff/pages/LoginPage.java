@@ -1,14 +1,11 @@
 package com.cliff.pages;
 
 import com.cliff.common.ElementExists;
+import com.cliff.common.Waits;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class LoginPage {
     private final WebDriver driver;
@@ -34,23 +31,20 @@ public class LoginPage {
     }
 
     public String getError() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement err = wait.until(ExpectedConditions.visibilityOfElementLocated(errMsgBox));
+        WebElement err = Waits.waitForVisible(driver, errMsgBox);
         return err.getText();
     }
 
     public void closeErrBox() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(errMsgBoxCloseBtn));
+        WebElement btn = Waits.waitForClickable(driver, errMsgBoxCloseBtn);
         btn.click();
     }
 
     public boolean isErrorPresented() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(errMsgBox));
+            Waits.waitForVisible(driver, errMsgBox);
             return true;
-        } catch (NoSuchElementException e){
+        } catch (TimeoutException e){
             return false;
         }
     }
