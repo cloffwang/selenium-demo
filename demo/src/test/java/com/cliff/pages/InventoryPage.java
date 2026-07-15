@@ -1,7 +1,5 @@
 package com.cliff.pages;
 
-import com.cliff.common.ElementExists;
-import com.cliff.common.Waits;
 import com.cliff.utils.ProjLog;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -12,13 +10,11 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.Arrays;
 import java.util.List;
 
-public class InventoryPage {
+public class InventoryPage extends BasePage {
     public final String optionAZ = "Name (A to Z)";
     public final String optionZA = "Name (Z to A)";
     public final String optionLoHi = "Price (low to high)";
     public final String optionHiLo = "Price (high to low)";
-
-    private final WebDriver driver;
 
     private final By listItem = By.className("inventory_item");
     private final By headerLabel = By.className("header_label");
@@ -28,11 +24,11 @@ public class InventoryPage {
     private Select select;
 
     public InventoryPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public boolean isInventoryPage() {
-        return ElementExists.isElementExists(driver, headerLabel);
+        return isElementPresent(headerLabel);
     }
 
     public void sortAZ() {
@@ -95,14 +91,14 @@ public class InventoryPage {
 
     private List<WebElement> getInventoryItems() {
         try {
-            return Waits.waitForPresenceOfAll(driver, listItem);
+            return waitForPresenceOfAll(listItem);
         } catch (TimeoutException e) {
             return List.of();
         }
     }
 
     private void findSelect() {
-        WebElement selectElement = Waits.waitForVisible(driver, sortList);
+        WebElement selectElement = waitForVisible(sortList);
         this.select = new Select(selectElement);
     }
 }

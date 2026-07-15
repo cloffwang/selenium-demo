@@ -1,15 +1,11 @@
 package com.cliff.pages;
 
-import com.cliff.common.ElementExists;
-import com.cliff.common.Waits;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class LoginPage {
-    private final WebDriver driver;
-
+public class LoginPage extends BasePage {
     private final By userNameField = By.id("user-name");
     private final By passwordField = By.id("password");
     private final By loginButton = By.id("login-button");
@@ -17,11 +13,11 @@ public class LoginPage {
     private final By errMsgBoxCloseBtn = By.cssSelector("button[data-test=error-button]");
 
     public LoginPage(WebDriver driver){
-        this.driver = driver;
+        super(driver);
     }
 
     public boolean isLoginPage() {
-        return ElementExists.isElementExists(driver, loginButton);
+        return isElementPresent(loginButton);
     }
 
     public void fillUserInfo(String username, String password) {
@@ -31,18 +27,18 @@ public class LoginPage {
     }
 
     public String getError() {
-        WebElement err = Waits.waitForVisible(driver, errMsgBox);
+        WebElement err = waitForVisible(errMsgBox);
         return err.getText();
     }
 
     public void closeErrBox() {
-        WebElement btn = Waits.waitForClickable(driver, errMsgBoxCloseBtn);
+        WebElement btn = waitForClickable(errMsgBoxCloseBtn);
         btn.click();
     }
 
     public boolean isErrorPresented() {
         try {
-            Waits.waitForVisible(driver, errMsgBox);
+            waitForVisible(errMsgBox);
             return true;
         } catch (TimeoutException e){
             return false;
