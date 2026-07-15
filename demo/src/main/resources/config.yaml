@@ -7,8 +7,6 @@ env:
     browsers:
       - browser: chrome
         version: latest
-      - browser: firefox
-        version: latest
     headless: false
     browserStack: false
     grid: false
