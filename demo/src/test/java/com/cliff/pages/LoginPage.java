@@ -1,18 +1,11 @@
 package com.cliff.pages;
 
-import com.cliff.common.ElementExists;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
-public class LoginPage {
-    private final WebDriver driver;
-
+public class LoginPage extends BasePage {
     private final By userNameField = By.id("user-name");
     private final By passwordField = By.id("password");
     private final By loginButton = By.id("login-button");
@@ -20,11 +13,16 @@ public class LoginPage {
     private final By errMsgBoxCloseBtn = By.cssSelector("button[data-test=error-button]");
 
     public LoginPage(WebDriver driver){
-        this.driver = driver;
+        super(driver);
     }
 
     public boolean isLoginPage() {
-        return ElementExists.isElementExists(driver, loginButton);
+        try {
+            waitForVisible(loginButton);
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 
     public void fillUserInfo(String username, String password) {
@@ -34,23 +32,20 @@ public class LoginPage {
     }
 
     public String getError() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement err = wait.until(ExpectedConditions.visibilityOfElementLocated(errMsgBox));
+        WebElement err = waitForVisible(errMsgBox);
         return err.getText();
     }
 
     public void closeErrBox() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(errMsgBoxCloseBtn));
+        WebElement btn = waitForClickable(errMsgBoxCloseBtn);
         btn.click();
     }
 
     public boolean isErrorPresented() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(errMsgBox));
+            waitForVisible(errMsgBox);
             return true;
-        } catch (NoSuchElementException e){
+        } catch (TimeoutException e){
             return false;
         }
     }

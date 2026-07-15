@@ -1,23 +1,20 @@
 package com.cliff.pages;
 
-import com.cliff.common.ElementExists;
 import com.cliff.utils.ProjLog;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-public class InventoryPage {
+public class InventoryPage extends BasePage {
     public final String optionAZ = "Name (A to Z)";
     public final String optionZA = "Name (Z to A)";
     public final String optionLoHi = "Price (low to high)";
     public final String optionHiLo = "Price (high to low)";
-
-    private final WebDriver driver;
 
     private final By listItem = By.className("inventory_item");
     private final By headerLabel = By.className("header_label");
@@ -27,12 +24,16 @@ public class InventoryPage {
     private Select select;
 
     public InventoryPage(WebDriver driver) {
-        this.driver = driver;
-        driver.manage().timeouts().implicitlyWait(1, TimeUnit.MINUTES);
+        super(driver);
     }
 
     public boolean isInventoryPage() {
-        return ElementExists.isElementExists(driver, headerLabel);
+        try {
+            waitForVisible(headerLabel);
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 
     public void sortAZ() {
@@ -64,7 +65,7 @@ public class InventoryPage {
     }
 
     public boolean isLowest() {
-        List<WebElement> listElements = driver.findElements(listItem);
+        List<WebElement> listElements = getInventoryItems();
         if(!listElements.isEmpty()) {
             float[] prices = new float[listElements.size()];
             for ( int i=0; i<listElements.size(); i++) {
@@ -79,7 +80,7 @@ public class InventoryPage {
     }
 
     public boolean isHighest() {
-        List<WebElement> listElements = driver.findElements(listItem);
+        List<WebElement> listElements = getInventoryItems();
         if(!listElements.isEmpty()) {
             float[] prices = new float[listElements.size()];
             for ( int i=0; i<listElements.size(); i++) {
@@ -93,8 +94,16 @@ public class InventoryPage {
         return false;
     }
 
+    private List<WebElement> getInventoryItems() {
+        try {
+            return waitForPresenceOfAll(listItem);
+        } catch (TimeoutException e) {
+            return List.of();
+        }
+    }
+
     private void findSelect() {
-        WebElement selectElement = driver.findElement(sortList);
+        WebElement selectElement = waitForVisible(sortList);
         this.select = new Select(selectElement);
     }
 }

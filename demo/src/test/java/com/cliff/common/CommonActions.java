@@ -5,19 +5,13 @@ import com.cliff.pages.LoginPage;
 import com.cliff.utils.ProjLog;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
 
 public class CommonActions {
     public static void login(
@@ -27,32 +21,6 @@ public class CommonActions {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.fillUserInfo(username,password);
         loginPage.tapOnLogin();
-    }
-
-    public static WebElement waitForAppear(
-            WebDriver driver,
-            int waitSecs,
-            int frequency,
-            By by) {
-        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
-                .withTimeout(Duration.ofSeconds(waitSecs))
-                .pollingEvery(Duration.ofSeconds(frequency))
-                .ignoring(NoSuchElementException.class);
-
-        return wait.until(new Function<WebDriver, WebElement>() {
-            @Override
-            public WebElement apply(WebDriver driver1) {
-                return driver1.findElement(by);
-            }
-        });
-    }
-
-    public static WebElement waitForClickable(
-            WebDriver driver,
-            int waitSecs,
-            By by) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(waitSecs));
-        return wait.until(ExpectedConditions.elementToBeClickable(by));
     }
 
     public static void dismissAlert(WebDriver driver, boolean isAccepted) {
